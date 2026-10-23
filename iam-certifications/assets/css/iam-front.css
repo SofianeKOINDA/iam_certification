@@ -8,7 +8,7 @@
 .iam-cert {
 	--ckd-accent: #0B5D3B;
 	--ckd-accent-fonce: #093f28;
-	--ckd-badge: #E4FF57;
+	--ckd-badge: #EDA900;
 	--ckd-bg: #EDE8DE;
 	--ckd-card: #FCFAF7;
 	--ckd-ink: #12352A;
@@ -325,320 +325,9 @@
 	color: var(--ckd-ink-soft);
 	padding: 30px;
 }
-/* ==========================================================================
- * Page de détail (landing)
- * ======================================================================== */
-.iam-cert-single {
-	max-width: 1080px;
-	margin: 0 auto;
-	padding: 0 16px 72px;
-}
-
-/* Hero */
-.iam-cert-hero {
-	padding: 40px 0 8px;
-}
-
-.iam-cert-hero__inner {
-	display: grid;
-	grid-template-columns: 1.05fr .95fr;
-	gap: 40px;
-	align-items: center;
-}
-
-.iam-cert-hero__badge {
-	display: inline-block;
-	background: var(--ckd-badge);
-	color: var(--ckd-ink);
-	font-size: .76rem;
-	font-weight: 700;
-	letter-spacing: .02em;
-	padding: 6px 14px;
-	border-radius: 999px;
-	margin-bottom: 16px;
-}
-
-.iam-cert-hero__title {
-	font-family: var(--ckd-serif);
-	color: var(--ckd-accent);
-	font-size: clamp(1.9rem, 4vw, 2.9rem);
-	line-height: 1.12;
-	margin: 0 0 12px;
-}
-
-.iam-cert-hero__sub {
-	font-size: 1.08rem;
-	color: var(--ckd-ink-soft);
-	line-height: 1.55;
-	margin: 0 0 20px;
-}
-
-.iam-cert-hero__media {
-	position: relative;
-	aspect-ratio: 4 / 3;
-	border-radius: var(--ckd-radius);
-	overflow: hidden;
-	background: var(--ckd-bg);
-	max-width: 100%;
-}
-
-.iam-cert-hero__img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-	position: absolute;
-	inset: 0;
-}
-
-/* Puces KPI du hero */
-.iam-cert-chips {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	list-style: none;
-	margin: 0 0 26px;
-	padding: 0;
-}
-
-.iam-cert-chip {
-	background: var(--ckd-card);
-	border: 1px solid var(--ckd-line);
-	color: var(--ckd-ink);
-	border-radius: 999px;
-	padding: 7px 15px;
-	font-size: .85rem;
-	font-weight: 600;
-}
-
-.iam-cert-btn--lg {
-	font-size: 1rem;
-	padding: 14px 26px;
-}
-
-/* Sections génériques */
-.iam-cert-sec {
-	margin-top: 48px;
-}
-
-.iam-cert-h2 {
-	font-family: var(--ckd-serif);
-	color: var(--ckd-accent);
-	font-size: clamp(1.5rem, 3vw, 2rem);
-	margin: 0 0 6px;
-}
-
-.iam-cert-h3 {
-	font-family: var(--ckd-serif);
-	color: var(--ckd-ink);
-	font-size: 1.15rem;
-	margin: 0 0 8px;
-}
-
-.iam-cert-sec__meta {
-	text-transform: uppercase;
-	letter-spacing: .1em;
-	font-size: .78rem;
-	color: var(--ckd-ink-soft);
-	margin: 0 0 24px;
-}
-
-/* Programme : grille de modules */
-.iam-cert-modules {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 18px;
-}
-
-.iam-cert-module {
-	display: flex;
-	gap: 16px;
-	background: var(--ckd-card);
-	border: 1px solid var(--ckd-line);
-	border-radius: var(--ckd-radius);
-	padding: 20px;
-}
-
-.iam-cert-module__num {
-	font-family: var(--ckd-serif);
-	font-size: 1.5rem;
-	font-weight: 700;
-	color: var(--ckd-badge);
-	-webkit-text-stroke: 1px var(--ckd-accent);
-	line-height: 1;
-	flex: 0 0 auto;
-	font-variant-numeric: tabular-nums;
-}
-
-.iam-cert-module__title {
-	font-family: var(--ckd-serif);
-	color: var(--ckd-ink);
-	font-size: 1.08rem;
-	line-height: 1.25;
-	margin: 0 0 6px;
-}
-
-.iam-cert-module__count {
-	display: inline-block;
-	font-size: .74rem;
-	text-transform: uppercase;
-	letter-spacing: .08em;
-	color: var(--ckd-accent);
-	margin-bottom: 8px;
-}
-
-.iam-cert-module__lecons {
-	margin: 0;
-	padding-left: 18px;
-	color: var(--ckd-ink-soft);
-	font-size: .92rem;
-	line-height: 1.5;
-}
-
-.iam-cert-module__lecons li {
-	margin: 2px 0;
-}
-
-/* Évaluation & prose */
-.iam-cert-eval p,
-.iam-cert-prose {
-	color: var(--ckd-ink);
-	line-height: 1.65;
-	font-size: 1rem;
-	max-width: 70ch;
-}
-
-.iam-cert-prose > * + * {
-	margin-top: 1em;
-}
-
-/* Récap + public/prérequis/outils */
-.iam-cert-facts {
-	display: grid;
-	grid-template-columns: minmax(240px, .8fr) 1.2fr;
-	gap: 36px;
-	align-items: start;
-}
-
-.iam-cert-recap {
-	width: 100%;
-	border-collapse: collapse;
-	background: var(--ckd-card);
-	border: 1px solid var(--ckd-line);
-	border-radius: var(--ckd-radius);
-	overflow: hidden;
-}
-
-.iam-cert-recap th,
-.iam-cert-recap td {
-	text-align: left;
-	padding: 12px 16px;
-	border-bottom: 1px solid var(--ckd-line);
-	font-size: .92rem;
-}
-
-.iam-cert-recap tr:last-child th,
-.iam-cert-recap tr:last-child td {
-	border-bottom: 0;
-}
-
-.iam-cert-recap th {
-	color: var(--ckd-ink-soft);
-	font-weight: 600;
-	width: 45%;
-}
-
-.iam-cert-recap td {
-	color: var(--ckd-ink);
-	font-weight: 700;
-}
-
-.iam-cert-facts__text {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-}
-
-.iam-cert-fact p {
-	margin: 0;
-	color: var(--ckd-ink-soft);
-	line-height: 1.55;
-}
-
-.iam-cert-outils__list .iam-cert-card__tool {
-	font-size: .82rem;
-	padding: 5px 12px;
-}
-
-/* Candidature : carte centrée avec le formulaire */
-.iam-cert-apply__card {
-	background: var(--ckd-card);
-	border: 1px solid var(--ckd-line);
-	border-radius: var(--ckd-radius);
-	padding: 32px;
-	max-width: 720px;
-	margin: 0 auto;
-}
-
-.iam-cert-apply__intro {
-	color: var(--ckd-ink-soft);
-	font-size: .95rem;
-	line-height: 1.55;
-	margin: 4px 0 22px;
-}
-
-.iam-cert-form-fallback {
-	color: var(--ckd-ink-soft);
-	font-size: .95rem;
-}
-
-/* Contact direct */
-.iam-cert-contact {
-	margin-top: 24px;
-	padding-top: 20px;
-	border-top: 1px solid var(--ckd-line);
-}
-
-.iam-cert-contact__title {
-	font-weight: 600;
-	color: var(--ckd-ink);
-	margin: 0 0 10px;
-	font-size: .9rem;
-}
-
-.iam-cert-contact__line {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	margin: 0 0 8px;
-	font-size: .95rem;
-}
-
-.iam-cert-contact__line a {
-	color: var(--ckd-accent);
-	text-decoration: none;
-	word-break: break-word;
-}
-
-.iam-cert-contact__line a:hover {
-	text-decoration: underline;
-}
-
-/* Responsive landing */
-@media (max-width: 900px) {
-	.iam-cert-hero__inner,
-	.iam-cert-modules,
-	.iam-cert-facts {
-		grid-template-columns: 1fr;
-		gap: 24px;
-	}
-	.iam-cert-hero__media {
-		order: -1;
-	}
-}
 
 /* ==========================================================================
- * Finitions UI/UX
+ * Finitions communes (cartes, focus, sélection)
  * ======================================================================== */
 .iam-cert ::selection { background: var(--ckd-badge); color: var(--ckd-ink); }
 
@@ -648,7 +337,6 @@
 	border-radius: 10px;
 }
 
-/* Carte : ombre plus douce + média avec léger voile dégradé */
 .iam-cert-card {
 	box-shadow: 0 1px 2px rgba(18, 53, 42, .04);
 }
@@ -662,74 +350,31 @@
 	background: linear-gradient(180deg, transparent 55%, rgba(9, 40, 27, .28));
 	pointer-events: none;
 }
-
-/* Puces KPI interactives */
-.iam-cert-chip {
-	transition: transform .15s ease, border-color .15s ease, background .15s ease;
-}
-.iam-cert-chip:hover {
-	transform: translateY(-2px);
-	border-color: var(--ckd-accent);
-}
-
-/* Module : barre d'accent + survol */
-.iam-cert-module {
-	position: relative;
-	transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.iam-cert-module::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 16px;
-	bottom: 16px;
-	width: 3px;
-	border-radius: 3px;
-	background: var(--ckd-badge);
-	opacity: 0;
-	transition: opacity .18s ease;
-}
-.iam-cert-module:hover {
-	transform: translateY(-3px);
-	border-color: var(--ckd-accent);
-	box-shadow: 0 12px 26px rgba(9, 63, 40, .12);
-}
-.iam-cert-module:hover::before { opacity: 1; }
-
-/* Hero média : cadre subtil */
-.iam-cert-hero__media {
-	box-shadow: 0 24px 50px rgba(9, 63, 40, .18);
-}
-.iam-cert-hero__media::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: var(--ckd-radius);
-	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
-	pointer-events: none;
-}
-
-/* Bouton : ombre portée au survol */
-.iam-cert-btn {
+.iam-cert-grid .iam-cert-btn {
 	box-shadow: 0 6px 16px rgba(11, 93, 59, .22);
 }
-.iam-cert-btn:hover {
+.iam-cert-grid .iam-cert-btn:hover {
 	box-shadow: 0 10px 24px rgba(11, 93, 59, .30);
 }
 
-/* Lignes du récap : survol */
-.iam-cert-recap tbody tr {
-	transition: background .15s ease;
-}
-.iam-cert-recap tbody tr:hover {
-	background: color-mix(in srgb, var(--ckd-badge) 22%, transparent);
+
+/* Badge de type sur la carte (séminaire / certificat). */
+.iam-cert-card__type {
+	position: absolute;
+	left: 12px;
+	top: 12px;
+	padding: 4px 10px;
+	border-radius: 999px;
+	background: rgba(9, 40, 27, .72);
+	backdrop-filter: blur(6px);
+	color: #fff;
+	font-size: .7rem;
+	font-weight: 700;
+	letter-spacing: .06em;
+	text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce) {
-	.iam-cert *,
-	.iam-cert *::before,
-	.iam-cert *::after {
-		transition: none !important;
-		animation: none !important;
-	}
+.iam-cert-card--seminaire .iam-cert-card__type {
+	background: #EDA900;
+	color: #1f2a25;
 }

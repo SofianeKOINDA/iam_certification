@@ -48,6 +48,7 @@ class IAM_Cert_Template {
 
 		// Assets front.
 		wp_enqueue_style( 'iam-cert-front' );
+		wp_enqueue_style( 'iam-cert-single' );
 		wp_enqueue_script( 'iam-cert-front' );
 		wp_enqueue_script( 'iam-cert-animations' );
 

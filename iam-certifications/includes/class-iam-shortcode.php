@@ -32,8 +32,10 @@ class IAM_Cert_Shortcode {
 	public function render( $atts ) {
 		$atts = shortcode_atts(
 			array(
+				'type'             => '',      // « certificat » ou « seminaire » (vide = tous).
 				'domaine'          => '',      // Slug(s) de domaine, séparés par des virgules.
 				'outil'            => '',      // Slug(s) d'outil.
+				'ids'              => '',      // Formations précises (ID séparés par des virgules), dans cet ordre.
 				'limit'            => -1,      // Nombre de certifications (-1 = toutes).
 				'columns'          => 3,       // Colonnes sur grand écran (1 à 4).
 				'featured'         => '',      // "true" pour ne montrer que les mises en avant.
@@ -95,6 +97,13 @@ class IAM_Cert_Shortcode {
 			'no_found_rows'  => true,
 		);
 
+		// Formations choisies une à une : affichées dans l'ordre donné.
+		$ids = array_filter( array_map( 'absint', explode( ',', (string) $atts['ids'] ) ) );
+		if ( $ids ) {
+			$args['post__in'] = $ids;
+			$args['orderby']  = 'post__in';
+		}
+
 		$tax_query = array();
 
 		if ( '' !== $atts['domaine'] ) {
@@ -121,13 +130,37 @@ class IAM_Cert_Shortcode {
 			$args['tax_query'] = $tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 		}
 
+		$meta_query = array();
+
 		if ( 'true' === $atts['featured'] ) {
-			$args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			$meta_query[] = array(
+				'key'   => '_iam_featured',
+				'value' => '1',
+			);
+		}
+
+		if ( 'seminaire' === $atts['type'] ) {
+			$meta_query[] = array(
+				'key'   => '_iam_type',
+				'value' => 'seminaire',
+			);
+		} elseif ( 'certificat' === $atts['type'] ) {
+			// Les fiches antérieures à la v1.2 n'ont pas de type : ce sont des certificats.
+			$meta_query[] = array(
+				'relation' => 'OR',
 				array(
-					'key'   => '_iam_featured',
-					'value' => '1',
+					'key'   => '_iam_type',
+					'value' => 'certificat',
+				),
+				array(
+					'key'     => '_iam_type',
+					'compare' => 'NOT EXISTS',
 				),
 			);
+		}
+
+		if ( $meta_query ) {
+			$args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 
 		return new WP_Query( $args );

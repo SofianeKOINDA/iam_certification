@@ -1,0 +1,496 @@
+/**
+ * Générateur de shortcode (Formations → Shortcodes).
+ * S'appuie sur iam-admin.css (jetons --a-*, iam-sec, iam-adm-btn).
+ */
+
+.iam-builder {
+	max-width: 1240px;
+}
+
+.iam-builder__layout {
+	display: grid;
+	grid-template-columns: 330px minmax(0, 1fr);
+	gap: 16px;
+	align-items: start;
+}
+
+.iam-builder__palette {
+	position: sticky;
+	top: 46px;
+	max-height: calc(100vh - 66px);
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+}
+
+.iam-builder__palette .iam-sec__body {
+	overflow-y: auto;
+	padding: 14px;
+}
+
+.iam-builder__main > .iam-sec:last-child {
+	margin-bottom: 0;
+}
+
+.iam-cert-admin .iam-builder__search {
+	width: 100%;
+	min-height: 38px;
+	margin-bottom: 10px;
+	padding: 6px 12px;
+	border: 1px solid #d0d5dd;
+	border-radius: 10px;
+	font-size: 13px;
+}
+
+/* Palette ------------------------------------------------------------ */
+.iam-pal {
+	margin: 0 0 10px;
+}
+
+.iam-pal summary {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 2px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	color: var(--a-mute);
+	cursor: pointer;
+	list-style: none;
+}
+
+.iam-pal summary::-webkit-details-marker {
+	display: none;
+}
+
+.iam-pal summary .dashicons {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+}
+
+.iam-pal summary small {
+	margin-left: auto;
+	padding: 0 7px;
+	border-radius: 999px;
+	background: #f2f4f7;
+	font-size: 10.5px;
+}
+
+.iam-pal__items {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	padding: 4px 0 6px;
+}
+
+.iam-chip {
+	--c: var(--a-green);
+	--c-soft: var(--a-green-soft);
+
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	max-width: 100%;
+	min-height: 34px;
+	padding: 4px 10px 4px 6px;
+	border: 1px solid color-mix(in srgb, var(--c) 28%, transparent);
+	border-radius: 10px;
+	background: var(--c-soft);
+	font: inherit;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--a-ink);
+	text-align: left;
+	cursor: grab;
+	transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+}
+
+.iam-chip:hover,
+.iam-chip:focus-visible {
+	transform: translateY(-1px);
+	box-shadow: 0 6px 16px rgba(16, 24, 40, .1);
+}
+
+.iam-chip:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--c) 35%, transparent);
+	outline-offset: 1px;
+}
+
+.iam-chip > span:not(.dashicons) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.iam-chip .dashicons {
+	flex: 0 0 auto;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	color: var(--c);
+}
+
+.iam-chip > .dashicons:last-child {
+	margin-left: auto;
+	opacity: .55;
+}
+
+.iam-chip img {
+	flex: 0 0 24px;
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	object-fit: cover;
+}
+
+.iam-chip.is-used {
+	opacity: .45;
+	cursor: default;
+	transform: none;
+	box-shadow: none;
+}
+
+.iam-chip.is-dragging {
+	opacity: .4;
+}
+
+/* Familles de blocs : la couleur aide à les reconnaître d'un coup d'œil. */
+.iam-chip--vert { --c: #0b5d3b; --c-soft: #e7f2ec; }
+.iam-chip--encre { --c: #344054; --c-soft: #f2f4f7; }
+.iam-chip--or { --c: #b07d00; --c-soft: #fdf4dc; }
+.iam-chip--bleu { --c: #1a5aa8; --c-soft: #eaf2fc; }
+.iam-chip--terre { --c: #b4532a; --c-soft: #fbeee7; }
+
+/* Zone de construction ---------------------------------------------- */
+.iam-builder__count {
+	align-self: center;
+	margin-left: auto;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: var(--a-green-soft);
+	font-size: 12.5px;
+	color: var(--a-green);
+	white-space: nowrap;
+}
+
+.iam-builder__count b {
+	font-size: 15px;
+}
+
+.iam-builder__count.is-zero {
+	background: #fef3f2;
+	color: #b42318;
+}
+
+.iam-builder__zone {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-height: 150px;
+	padding: 12px;
+	border: 2px dashed var(--a-line);
+	border-radius: 14px;
+	background: #fcfcfb;
+	transition: border-color .15s ease, background .15s ease;
+}
+
+.iam-builder__zone.is-waiting {
+	border-color: #9cc6b0;
+}
+
+.iam-builder__zone.is-over {
+	border-color: var(--a-green);
+	background: var(--a-green-soft);
+}
+
+.iam-builder__empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	min-height: 122px;
+	text-align: center;
+	font-size: 12.5px;
+	color: var(--a-mute);
+	pointer-events: none;
+}
+
+.iam-builder__empty .dashicons {
+	font-size: 30px;
+	width: 30px;
+	height: 30px;
+	color: #9cc6b0;
+}
+
+.iam-builder__empty strong {
+	font-size: 14px;
+	color: var(--a-ink-2);
+}
+
+.iam-builder__repere {
+	height: 3px;
+	margin: -2px 0;
+	border-radius: 3px;
+	background: var(--a-green);
+}
+
+.iam-bloc {
+	--c: var(--a-green);
+	--c-soft: var(--a-green-soft);
+
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 8px 8px 6px;
+	border: 1px solid var(--a-line);
+	border-left: 4px solid var(--c);
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+	cursor: grab;
+}
+
+.iam-bloc.is-new {
+	animation: iam-pop .35s ease;
+}
+
+.iam-bloc.is-dragging {
+	opacity: .4;
+}
+
+@keyframes iam-pop {
+	0% { transform: scale(.94); opacity: 0; }
+	60% { transform: scale(1.02); opacity: 1; }
+	100% { transform: scale(1); }
+}
+
+.iam-bloc__poignee {
+	color: #c0c5cc;
+}
+
+.iam-bloc__icone {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 32px;
+	width: 32px;
+	height: 32px;
+	border-radius: 9px;
+	background: var(--c-soft);
+	color: var(--c);
+	overflow: hidden;
+}
+
+.iam-bloc__icone img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.iam-bloc__libelle {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	font-size: 13.5px;
+	font-weight: 600;
+	color: var(--a-ink);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.iam-cert-admin .iam-bloc select,
+.iam-cert-admin .iam-bloc input[type="number"] {
+	width: auto;
+	min-width: 84px;
+	min-height: 34px;
+	padding: 4px 28px 4px 10px;
+	font-size: 13px;
+}
+
+.iam-cert-admin .iam-bloc input[type="number"] {
+	width: 84px;
+	padding-right: 8px;
+}
+
+.iam-bloc__btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border: 1px solid var(--a-line);
+	border-radius: 999px;
+	background: #fff;
+	color: var(--a-mute);
+	cursor: pointer;
+}
+
+.iam-bloc__btn:hover,
+.iam-bloc__btn:focus-visible {
+	border-color: var(--a-green);
+	color: var(--a-green);
+}
+
+.iam-bloc__btn--retirer:hover,
+.iam-bloc__btn--retirer:focus-visible {
+	border-color: #b42318;
+	color: #b42318;
+}
+
+.iam-bloc__btn .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.iam-builder__notes {
+	margin: 10px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.iam-builder__notes li {
+	display: flex;
+	align-items: flex-start;
+	gap: 6px;
+	margin: 6px 0 0;
+	font-size: 12.5px;
+	color: #7a5410;
+}
+
+.iam-builder__notes .dashicons {
+	flex: 0 0 auto;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+/* Résultat ------------------------------------------------------------ */
+.iam-builder__code {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 8px 8px 14px;
+	border-radius: 12px;
+	background: #101828;
+}
+
+.iam-builder__code code {
+	flex: 1;
+	min-width: 0;
+	padding: 0;
+	background: none;
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #e4ff57;
+	overflow-wrap: anywhere;
+}
+
+.iam-builder [data-iam-copy].is-copied {
+	background: #12b76a;
+	border-color: #12b76a;
+}
+
+.iam-builder__save {
+	display: flex;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+.iam-builder__save input[type="text"] {
+	flex: 1;
+}
+
+/* Aperçu -------------------------------------------------------------- */
+.iam-builder__preview {
+	padding: 0;
+	background: #fff;
+}
+
+.iam-builder__preview iframe {
+	display: block;
+	width: 100%;
+	height: 420px;
+	border: 0;
+	transition: height .2s ease;
+}
+
+/* Shortcodes enregistrés --------------------------------------------- */
+.iam-builder__saved {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.iam-builder__saved li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 0;
+	padding: 12px 18px;
+	border-bottom: 1px solid #f0f1f3;
+}
+
+.iam-builder__saved li:last-child {
+	border-bottom: 0;
+}
+
+.iam-builder__saved li > div:first-child {
+	min-width: 0;
+}
+
+.iam-builder__saved strong {
+	display: block;
+	font-size: 13.5px;
+	color: var(--a-ink);
+}
+
+.iam-builder__saved code {
+	display: block;
+	margin-top: 2px;
+	padding: 0;
+	background: none;
+	font-size: 11.5px;
+	color: var(--a-mute);
+	overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+	.iam-builder__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.iam-builder__palette {
+		position: static;
+		max-height: none;
+	}
+
+	.iam-builder__palette .iam-sec__body {
+		max-height: 340px;
+	}
+}
+
+@media (max-width: 600px) {
+	.iam-builder__save,
+	.iam-builder__code {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.iam-bloc {
+		flex-wrap: wrap;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.iam-bloc.is-new {
+		animation: none;
+	}
+}

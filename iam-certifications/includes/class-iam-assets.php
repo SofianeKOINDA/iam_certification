@@ -36,6 +36,8 @@ class IAM_Cert_Assets {
 			return;
 		}
 
+		wp_enqueue_media();
+
 		wp_enqueue_style(
 			'iam-cert-admin',
 			IAM_CERT_URL . 'assets/css/iam-admin.css',
@@ -66,6 +68,13 @@ class IAM_Cert_Assets {
 			IAM_CERT_VERSION
 		);
 
+		wp_register_style(
+			'iam-cert-single',
+			IAM_CERT_URL . 'assets/css/iam-single.css',
+			array( 'iam-cert-front' ),
+			IAM_CERT_VERSION
+		);
+
 		wp_register_script(
 			'iam-cert-front',
 			IAM_CERT_URL . 'assets/js/iam-front.js',
@@ -89,6 +98,11 @@ class IAM_Cert_Assets {
 			'3.12.5',
 			true
 		);
+		// Le thème peut charger sa propre version de GSAP (globale « gsap ») : on
+		// mémorise nos instances juste après leur chargement pour ne pas en dépendre.
+		wp_add_inline_script( 'iam-gsap', 'window.iamGsap = window.gsap;' );
+		wp_add_inline_script( 'iam-scrolltrigger', 'window.iamScrollTrigger = window.ScrollTrigger;' );
+
 		wp_register_script(
 			'iam-cert-animations',
 			IAM_CERT_URL . 'assets/js/iam-animations.js',
